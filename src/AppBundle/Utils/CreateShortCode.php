@@ -1,17 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 11/9/15
- * Time: 5:06 PM
- */
+
 
 namespace AppBundle\Utils;
 
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class CreateShortCode {
 
-    public function urlToShortCode($url){
+class CreateShortCode{
+
+
+    public function checkValidUrl($url){
 
         if(empty($url)){
             $shortcode = "No URL was supplied.";
@@ -20,11 +19,7 @@ class CreateShortCode {
         }elseif (!$this->verifyUrlExists($url)) {
                 $shortcode = "URL does not appear to exist.";
         }else{
-            $shortCode = $this->urlExistsInDb($url);
-            if ($shortCode == false) {
-//            $shortCode = $this->createShortCode($url);
-                $shortcode = "shortcode needs to be created";
-            }
+            $shortcode = $url;
         }
 
         return $shortcode;
@@ -45,14 +40,6 @@ class CreateShortCode {
         curl_close($ch);
 
         return (!empty($response) && $response != 404);
-    }
-
-    protected function urlExistsInDb($url) {
-        $result = $this->getDoctrine()
-            ->getRepository('AppBundle:Url')
-            ->findOneById(1);
-
-        return (empty($result)) ? false : 'hello';
     }
 
 

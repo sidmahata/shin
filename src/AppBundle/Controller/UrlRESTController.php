@@ -87,13 +87,34 @@ class UrlRESTController extends VoryxController
         $this->removeExtraFields($request, $form);
         $form->handleRequest($request);
 
-        $entity->setShortcode('abc');
+
 
 
 //        create $shortcode for posted $longurl
 
-        $result = $this->get('app.createShortCode')->urlToShortCode($entity->getLongurl());
-        return $result;
+        $result = $this->get('app.createShortCode')->checkValidUrl($entity->getLongurl());
+
+        if($result == $entity->getLongurl()){
+            $em = $this->getDoctrine()->getManager();
+            $existshortcode = $em->getRepository('AppBundle:Url')->findOneByLongurl($result);
+
+            if ($existshortcode == false) {
+                $entity->setShortcode('xyz');
+                if ($form->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($entity);
+                    $em->flush();
+
+                    return $entity;
+                }
+            }else{
+                return $existshortcode->getShortcode();
+            }
+        }
+
+
+
+
 
 //        if ($form->isValid()) {
 //            $em = $this->getDoctrine()->getManager();
