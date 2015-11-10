@@ -1,6 +1,9 @@
 a{color: #6EF5F5;}
 a:hover{color: #56FFA0;}
 
-.fa{color: #EBEBEB;}
+.fa-hover{color: #EBEBEB; cursor: pointer; padding: 10px;}
+.fa-hover:hover{background: #6f8597; padding: 10px;}
 
-.copy-btn{margin-left: 15px;}
+.copy-btn{margin: -8px 0 0 15px;}
+
+#shorturl-create-box{min-height: 120px; display: none;}

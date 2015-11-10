@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <nav class="navbar navbar-default" style="font-size: 16px;">
+        <div class="container-fluid" style="padding: 10px; border-bottom: 1px solid rgb(78, 104, 108);">
+
+            <div class="col-sm-6">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-6">
+                <div class="pull-right">
+                    <a href="{{ entity.longurl }}" id="skip-longurl" class="btn btn-primary">SKIP ADVERTISEMENT</a>
+                </div>
+            </div>
+        </div>
+
+
+
+    </nav>
+
+    <div class="container text-center">
+        <h1 style="font-size: 80px;"><strong>Advertisement</strong> goes here ...</h1>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var downloadButton = document.getElementById("skip-longurl");
+        var counter = 5;
+        var newElement = document.createElement("p");
+        newElement.innerHTML = "You can skip the advertisement in 5 seconds.";
+        var id;
+
+        downloadButton.parentNode.replaceChild(newElement, downloadButton);
+
+        id = setInterval(function() {
+            counter--;
+            if(counter < 0) {
+                newElement.parentNode.replaceChild(downloadButton, newElement);
+                clearInterval(id);
+            } else {
+                newElement.innerHTML = "You can skip the advertisement in " + counter.toString() + " seconds.";
+            }
+        }, 1000);
+
+    </script>
+{% endblock %}
