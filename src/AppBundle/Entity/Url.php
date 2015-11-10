@@ -32,7 +32,7 @@ class Url
     /**
      * @var string
      *
-     * @ORM\Column(name="shortcode", type="string", length=255)
+     * @ORM\Column(name="shortcode", type="string", length=255, nullable=true)
      */
     private $shortcode;
 

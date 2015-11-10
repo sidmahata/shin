@@ -99,17 +99,29 @@ class UrlRESTController extends VoryxController
             $existshortcode = $em->getRepository('AppBundle:Url')->findOneByLongurl($result);
 
             if ($existshortcode == false) {
-                $entity->setShortcode('xyz');
+
+//                Insert url in db
                 if ($form->isValid()) {
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
 
+//                    generate shortcode from id of url row generated (using services)
+                    $shortcode = $this->get('app.createShortCode')->convertIntToShortCode($entity->getId());
+
+//                    update the shortcode generated in the database
+                    $entity->setShortcode($shortcode);
+                    $em->flush();
+
                     return $entity;
                 }
             }else{
-                return $existshortcode->getShortcode();
+                return array('shortcode' => $existshortcode->getShortcode(), 'longurl' => $existshortcode->getLongurl());
             }
+        }else{
+
+//            return check url validation errors
+            return array('error' => $result);
         }
 
 
@@ -124,7 +136,7 @@ class UrlRESTController extends VoryxController
 //            return $entity;
 //        }
 
-//        return FOSView::create(array('errors' => $form->getErrors()), Codes::HTTP_INTERNAL_SERVER_ERROR);
+        return FOSView::create(array('errors' => $form->getErrors()), Codes::HTTP_INTERNAL_SERVER_ERROR);
     }
     /**
      * Update a Url entity.
