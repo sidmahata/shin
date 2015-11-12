@@ -155,7 +155,7 @@
                 $("#shorturl-loader").delay(250).show(100);
 
 
-                $http.post("http://localhost/shin/web/app_dev.php/api/urls", $scope.urlentry)
+                $http.post("{{ app.request.getSchemeAndHttpHost() }}{{ app.request.baseUrl }}//api/urls", $scope.urlentry)
                         .success(function(response) {
                             $scope.shorturl_list = response;
 
