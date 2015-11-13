@@ -21,7 +21,8 @@
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "voryx/restgeneratorbundle": "dev-master"
+        "voryx/restgeneratorbundle": "dev-master",
+        "nelmio/cors-bundle": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
